@@ -67,7 +67,7 @@ if __name__ == "__main__":
 	parser.add_argument("-v", "--value", help="Input Value")
 	parser.add_argument("-c", "--client", help="client_file_name")
 	parser.add_argument("-t", "--ttl", help="optional Time to live for Key(seconds)")
-	parser.add_argument("-f", "--filepath", help="optional filepath "
+	parser.add_argument("-f", "--filepath", help="optional filepath")
 	parser.add_argument("-o", "--operation", help=help)
 
 
