@@ -9,13 +9,17 @@ lock = threading.RLock()
 
 def create(client, key, value, **kwargs):
 	ttl_value = kwargs.get('ttl', None)
+	
+	filepath = kwargs.get('filepath', "")
 	with lock:
 		if isinstance(value, str):
 			try:
 				value = json.loads(value)
 			except:
 				value = value
-		status = operations.create_operation(client, key, value, ttl = ttl_value)
+		
+		status = operations.create_operation(client, key, value, filepath, ttl = ttl_value)
+		
 		if 'successfull' in status:
 			return "Create Operation Done"
 		elif 'denied' in status:
@@ -26,9 +30,10 @@ def create(client, key, value, **kwargs):
 			return "Error Status : " + status
 
 
-def delete(client, key):
+def delete(client, key, **kwargs):
+	filepath = kwargs.get('filepath', "")
 	with lock:
-		status = operations.delete_operation(client, key)
+		status = operations.delete_operation(client, key, filepath)
 		if 'Deleted' in status:
 			return status
 		elif 'not found' in status:
@@ -39,9 +44,10 @@ def delete(client, key):
 			return "Error Status : " + status
 
 
-def read(client, key):
+def read(client, key, **kwargs):
+	filepath = kwargs.get('filepath', "")
 	with lock:
-		status = operations.read_operation(client, key)
+		status = operations.read_operation(client, key, filepath)
 		if 'not found' in status:
 			logging.error(status)
 			return status
@@ -52,9 +58,10 @@ def read(client, key):
 			return "Error Status : " + status
 
 
-def reset(client):
+def reset(client, **kwargs):
+	filepath = kwargs.get('filepath', "")
 	with lock:
-		status = operations.reset_operation(client)
+		status = operations.reset_operation(client, filepath)
 		logging.info(status)
 		return status
 

@@ -31,7 +31,7 @@ def create(mock):
 	print(main_executor.create(mock.client, mock.key_more_than_32, mock.value_json_type)+"\n")#Expect Key error
 	print(main_executor.create("87Lane", mock.key_int, mock.value_dict)+"\n")				#Expect key error
 	print(main_executor.create(mock.client, "Employer", mock.value_string)+"\n")			#Expect value error
-	print(main_executor.create(mock.client, "Executive", mock.value_dict, ttl = mock.ttl_value))	#Expect Success
+	print(main_executor.create(mock.client, "Executive", mock.value_dict, ttl = mock.ttl_value)+"\n")	#Expect Success
 
 
 def read(mock):
