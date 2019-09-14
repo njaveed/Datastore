@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='pythonfiledatastore',
-      version='1.4',
+      version='1.5',
       description='File based datastore',
       url='https://github.com/njaveed/Datastore.git',
       author='Javeed',
