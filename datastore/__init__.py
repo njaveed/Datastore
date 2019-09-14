@@ -1,5 +1,5 @@
-from .main_executor import main_executor 
-from .operations import operations
+from datastore import main_executor 
+from datastore import operations
 import argparse
 
 class datastore():
