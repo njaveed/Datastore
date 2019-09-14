@@ -15,7 +15,7 @@ Additional Installation
 Make sure you have python 3
 
 ## Usage:
-    >>> from datastore import datastore_invoke 
+    >>> from python-file-datastore import datastore_invoke 
 
 #### General Instructions:
 
