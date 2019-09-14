@@ -2,14 +2,6 @@ from pythonfiledatastore import main_executor
 from pythonfiledatastore import operations
 import argparse
 
-
-help = '''Operation_name  
-	1 for Create (--client --key  --ttl(optional) --value --filepath(optional)) 
-	2 for Read (--client --key --filepath(optional)) 
-	3 for Delete (--client --key --filepath(optional)) 
-	4 for Reset (--client --filepath(optional))'''
-
-
 class datastore():
 	
 	def __init__(self, args):
@@ -18,6 +10,12 @@ class datastore():
 		self.client = args.get('client', None)
 		self.ttl = args.get('ttl', None)
 		self.filepath = args.get('filepath', None)
+		self.help = '''  
+	1 for Create (--client --key  --ttl(optional) --value --filepath(optional)) 
+	2 for Read (--client --key --filepath(optional)) 
+	3 for Delete (--client --key --filepath(optional)) 
+	4 for Reset (--client --filepath(optional))'''
+
 
 	
 	def create(self):
@@ -44,7 +42,7 @@ def datastore_invoke(operation_name, **kwargs):
 	operation = operation_name
 
 	datastore_app = datastore(kwargs)
-	global help
+	
 	status = ""
 
 	if operation == 1:
@@ -56,14 +54,20 @@ def datastore_invoke(operation_name, **kwargs):
 	elif operation == 4:
 		status = datastore_app.reset()
 	else:
-		status = "Operation Not Found" + help
+		status = "Operation Not Found" + datastore_app.help
 
 	return status
 
 
 if __name__ == "__main__": 
 
-	global help
+
+	help =  '''  
+	1 for Create (--client --key  --ttl(optional) --value --filepath(optional)) 
+	2 for Read (--client --key --filepath(optional)) 
+	3 for Delete (--client --key --filepath(optional)) 
+	4 for Reset (--client --filepath(optional))'''
+
 
 	parser = argparse.ArgumentParser()
 
