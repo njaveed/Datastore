@@ -4,18 +4,19 @@ import sys
 from cachetools import TTLCache 
 
 #######################	Operations ################################
-def create_operation(client_name, key, value, filepath, **kwargs):
+def create_operation(client_name, key, value, **kwargs):
 	ttl_value = kwargs.get('ttl', None) 
+	filepath = kwargs.get('filepath', ".//")
 	try:
 		with open(filepath+client_name+'.json', 'r+') as create_append:
 			old_data = json.load(create_append)
 			new_data = old_data
-			creation_output = datastore_creation(new_data, key, value, client_name, filepath, ttl = ttl_value)
+			creation_output = datastore_creation(new_data, key, value, client_name, filepath = filepath, ttl = ttl_value)
 			if isinstance(creation_output, dict):
 				new_data.update(creation_output)
-				if 'Healthy' in validate(client_name, filepath):
-					status = dumping_util(client_name, new_data, filepath)
-					if 'Healthy' in validate(client_name, filepath) and 'Dumped' in status:
+				if 'Healthy' in validate(client_name, filepath = filepath):
+					status = dumping_util(client_name, new_data, filepath = filepath)
+					if 'Healthy' in validate(client_name, filepath = filepath) and 'Dumped' in status:
 						return "Create Operation successfull-append"
 					elif 'Failed' in status:
 						return "Create Operation Failed - Data Dumping failed"
@@ -24,35 +25,37 @@ def create_operation(client_name, key, value, filepath, **kwargs):
 							json.dump(old_data, append)
 						return "Create Operation denied-append-(Insufficient space) | Client File execeeds 1 GB"
 				else:
-					return validate(client_name, filepath)
+					return validate(client_name, filepath = filepath)
 			else:
 				return creation_output
 
 	except FileNotFoundError as e:
-		return new_client_creation(client_name, key, value, filepath, ttl = ttl_value)
+		return new_client_creation(client_name, key, value, filepath = filepath, ttl = ttl_value)
  
 
 
-def new_client_creation(client_name, key, value, filepath, **kwargs):
+def new_client_creation(client_name, key, value, **kwargs):
 	ttl_value = kwargs.get('ttl', None)
+	filepath = kwargs.get('filepath', ".//")
 	datastore = {}				#New client so datastore is empty
-	creation_output = datastore_creation(datastore ,key, value, client_name, filepath, ttl = ttl_value)
+	creation_output = datastore_creation(datastore ,key, value, client_name, filepath = filepath, ttl = ttl_value)
 	if isinstance(creation_output, dict):
-		status = dumping_util(client_name, creation_output, filepath)
-		if 'Healthy' in validate(client_name, filepath) and 'Dumped' in status:
+		status = dumping_util(client_name, creation_output, filepath = filepath)
+		if 'Healthy' in validate(client_name, filepath = filepath) and 'Dumped' in status:
 			return "Create Operation successfull-new"
 		elif 'Failed' in status:
 			return "Create Operation Failed - Data Dumping failed" 
 		else:
-			status = reset_operation(client_name, filepath)
+			status = reset_operation(client_name, filepath = filepath)
 			if 'removed' in status:
 				return "Create Operation denied-new-(Insufficient space) | Client File execeeds 1 GB"
-			return validate(client_name, filepath)
+			return validate(client_name, filepath = filepath)
 	else:
 		return creation_output
 
-def datastore_creation(existing_datastore, key, value, client, filepath, **kwargs):
+def datastore_creation(existing_datastore, key, value, client, **kwargs):
 	ttl_value = kwargs.get('ttl', None)
+	filepath = kwargs.get('filepath', ".//")
 	datastore = {}
 	key_existience = check_key_exist(existing_datastore, key, client)
 	if 'New' in key_existience:
@@ -82,8 +85,8 @@ def datastore_creation(existing_datastore, key, value, client, filepath, **kwarg
 		return constrain_status
 
 
-def read_operation(client_name, key, filepath):
-
+def read_operation(client_name, key, **kwargs):
+	filepath = kwargs.get('filepath', ".//")
 	try:
 		with open(filepath+client_name+'.json','r+') as read_line:
 			if read_line:
@@ -100,14 +103,15 @@ def read_operation(client_name, key, filepath):
 		return '{} - Client_file_doesnot_exist'.format(client_name)
 
 
-def delete_operation(client_name, key, filepath):
+def delete_operation(client_name, key, **kwargs):
+	filepath = kwargs.get('filepath', ".//")
 	try:
 		with open(filepath+client_name+'.json','r+') as read_line_key:
 			data = json.load(read_line_key)
 			key_existience = check_key_exist(data, key, client_name)
 			if 'exist' in key_existience:
 				del data[key]
-				status = dumping_util(client_name, data, filepath)
+				status = dumping_util(client_name, data, filepath = filepath)
 				if 'Dumped' in status:
 					return "For key | "+ key +" | value - is deleted"
 				else:
@@ -121,7 +125,8 @@ def delete_operation(client_name, key, filepath):
 		return '{} - Client_file_doesnot_exist'.format(client_name)
 
 
-def reset_operation(client_name, filepath):
+def reset_operation(client_name, **kwargs):
+	filepath = kwargs.get('filepath', ".//")
 	try:
 		os.remove(filepath+client_name+".json")
 		return 'File removed!!!! - '+filepath+client_name
@@ -131,7 +136,8 @@ def reset_operation(client_name, filepath):
 
 ####################### Utils ################################
 
-def validate(file, filepath):
+def validate(file, **kwargs):
+	filepath = kwargs.get('filepath', ".//")
 	try:
 		size = os.path.getsize(filepath+file+".json")
 		if int(size) < 1073741824:
@@ -186,7 +192,8 @@ def check_key_exist(dict, key, client_name):
 		return "New key"
 
 
-def dumping_util(client_name, data, filepath):
+def dumping_util(client_name, data, **kwargs):
+	filepath = kwargs.get('filepath', ".//")
 	if data:
 		try:
 			with open(filepath+client_name+'.json','w+') as line_data:
@@ -196,7 +203,7 @@ def dumping_util(client_name, data, filepath):
 			return 'Failed to dump into file'
 	else:
 		try:
-			reset_operation(client_name, filepath)
+			reset_operation(client_name, filepath = filepath)
 			return 'Data Dumped into file'
 		except:
 			return 'Failed to dump into file'

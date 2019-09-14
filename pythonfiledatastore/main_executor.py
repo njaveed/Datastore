@@ -18,7 +18,7 @@ def create(client, key, value, **kwargs):
 			except:
 				value = value
 		
-		status = operations.create_operation(client, key, value, filepath , ttl = ttl_value)
+		status = operations.create_operation(client, key, value, filepath = filepath , ttl = ttl_value)
 		
 		if 'successfull' in status:
 			return "Create Operation Done"
@@ -31,9 +31,9 @@ def create(client, key, value, **kwargs):
 
 
 def delete(client, key, **kwargs):
-	filepath = kwargs.get('filepath', "")
+	filepath = kwargs.get('filepath', ".//")
 	with lock:
-		status = operations.delete_operation(client, key, filepath)
+		status = operations.delete_operation(client, key, filepath = filepath)
 		if 'Deleted' in status:
 			return status
 		elif 'not found' in status:
@@ -45,9 +45,9 @@ def delete(client, key, **kwargs):
 
 
 def read(client, key, **kwargs):
-	filepath = kwargs.get('filepath', "")
+	filepath = kwargs.get('filepath', ".//")
 	with lock:
-		status = operations.read_operation(client, key, filepath)
+		status = operations.read_operation(client, key, filepath = filepath)
 		if 'not found' in status:
 			logging.error(status)
 			return status
@@ -61,7 +61,7 @@ def read(client, key, **kwargs):
 def reset(client, **kwargs):
 	filepath = kwargs.get('filepath', "")
 	with lock:
-		status = operations.reset_operation(client, filepath)
+		status = operations.reset_operation(client, filepath = filepath)
 		logging.info(status)
 		return status
 
