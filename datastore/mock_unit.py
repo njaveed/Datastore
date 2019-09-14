@@ -1,5 +1,5 @@
-from .main_executor import main_executor 
-from .operations import operations
+from datastore import main_executor 
+from datastore import operations
 from time import sleep
 import threading
 
