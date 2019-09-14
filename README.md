@@ -4,6 +4,16 @@
 
 > File-based key-value data store that supports the basic CRD (create, read, and delete) operations. This data store is meant to be used as a local storage for one single process on one laptop.
 
+## Installation
+
+> pip install datastore
+
+Additional Installation
+
+> pip install cachetools
+
+Make sure you have python 3
+
 ## Usage:
 > \>>> from datastore import datastore_invoke 
 
@@ -46,13 +56,3 @@ Error Status : TTL Value for the Key - employee_data_temp expired for the client
 
 > \>>> print(datastore_invoke(4, client = "hunch" ))
 File removed!!!! - hunch
-
-## Installation
-
-> pip install datastore
-
-Additional Installation
-
-> pip install cachetools
-
-Make sure you have python 3
