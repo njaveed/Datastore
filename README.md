@@ -6,20 +6,15 @@
 
 ## Installation
 
-``` pip install python-file-datastore==0.1 ```
+``` pip install pythonfiledatastore ```
 
-Additional Installation
-
-``` pip install cachetools ```
-
-Make sure you have python 3
 
 ## Usage:
-    >>> from python-file-datastore import datastore_invoke 
+    >>> from pythonfiledatastore import datastore_invoke 
 
 #### General Instructions:
 
-    >>> print(datastore_invoke(0)
+    >>> print(datastore_invoke(0))
     Operation Not FoundOperation_name  1 - Create (--client --key  --ttl(optional) --value) | 2 - Read (--client --key) | 3 - Delete (--client --key) | 4 - Reset (--client)
 
 #### Create Operation
