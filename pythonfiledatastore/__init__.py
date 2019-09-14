@@ -31,11 +31,12 @@ class datastore():
 		return main_executor.reset(self.client, filepath = self.filepath)
 
 
-def datastore_invoke(operation_name, help, **kwargs):
+def datastore_invoke(operation_name, **kwargs):
 
 	operation = operation_name
 
 	datastore_app = datastore(kwargs)
+	global help
 	status = ""
 
 	if operation == 1:
@@ -51,15 +52,16 @@ def datastore_invoke(operation_name, help, **kwargs):
 
 	return status
 
-
-
-if __name__ == "__main__": 
-	
-	help = '''Operation_name  
+help = '''Operation_name  
 	1 for Create (--client --key  --ttl(optional) --value --filepath(optional)) 
 	2 for Read (--client --key --filepath(optional)) 
 	3 for Delete (--client --key --filepath(optional)) 
 	4 for Reset (--client --filepath(optional))'''
+
+
+if __name__ == "__main__": 
+
+	global help
 
 	parser = argparse.ArgumentParser()
 
@@ -67,7 +69,7 @@ if __name__ == "__main__":
 	parser.add_argument("-v", "--value", help="Input Value")
 	parser.add_argument("-c", "--client", help="client_file_name")
 	parser.add_argument("-t", "--ttl", help="optional Time to live for Key(seconds)")
-	parser.add_argument("-f", "--filepath", help="optional filepath")
+	parser.add_argument("-f", "--filepath", help="optional filepath ")
 	parser.add_argument("-o", "--operation", help=help)
 
 
@@ -80,5 +82,5 @@ if __name__ == "__main__":
 
 	operation = int(args.operation)
 
-	print(datastore_invoke(operation, help, client = client, key = key, value = value, ttl = ttl, filepath = filepath))
+	print(datastore_invoke(operation, client = client, key = key, value = value, ttl = ttl, filepath = filepath))
 
