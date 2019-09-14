@@ -19,13 +19,13 @@ Make sure you have python 3
 
 #### General Instructions:
 
-> \>>> print(datastore_invoke(0))
-> Operation Not FoundOperation_name  1 - Create (--client --key  --ttl(optional) --value) | 2 - Read (--client --key) | 3 - Delete (--client --key) | 4 - Reset (--client)
+        >>> print(datastore_invoke(0))
+        Operation Not FoundOperation_name  1 - Create (--client --key  --ttl(optional) --value) | 2 - Read (--client --key) | 3 - Delete (--client --key) | 4 - Reset (--client)
 
 #### Create Operation
 
-> \>>> print(datastore_invoke(1, client = "hunch" , key = "employee_data", value = '{"employee":"siam"}' ))
-> Create Operation Done
+        >>> print(datastore_invoke(1, client = "hunch" , key = "employee_data", value = '{"employee":"siam"}' ))
+        Create Operation Done
 
 #### Create Operation with Time to Live feature
 
