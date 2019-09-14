@@ -19,40 +19,40 @@ Make sure you have python 3
 
 #### General Instructions:
 
-        >>> print(datastore_invoke(0))
-        Operation Not FoundOperation_name  1 - Create (--client --key  --ttl(optional) --value) | 2 - Read (--client --key) | 3 - Delete (--client --key) | 4 - Reset (--client)
+    >>> print(datastore_invoke(0)
+    Operation Not FoundOperation_name  1 - Create (--client --key  --ttl(optional) --value) | 2 - Read (--client --key) | 3 - Delete (--client --key) | 4 - Reset (--client)
 
 #### Create Operation
 
-        >>> print(datastore_invoke(1, client = "hunch" , key = "employee_data", value = '{"employee":"siam"}' ))
-        Create Operation Done
+    >>> print(datastore_invoke(1, client = "hunch" , key = "employee_data", value = '{"employee":"siam"}' ))
+    Create Operation Done
 
 #### Create Operation with Time to Live feature
 
-> \>>> print(datastore_invoke(1, client = "hunch" , key = "employee_data_temp", value = '{"employee":"ragoish"}', ttl = 30 ))
-> Create Operation Done
+    >>> print(datastore_invoke(1, client = "hunch" , key = "employee_data_temp", value = '{"employee":"ragoish"}', ttl = 30 ))
+    Create Operation Done
 
 #### Read Operation
 
->\>>> print(datastore_invoke(2, client = "hunch" , key = "employee_data"))
-> For key | employee_data | value  - {'employee': 'siam'} 
+    >>> print(datastore_invoke(2, client = "hunch" , key = "employee_data"))
+    For key | employee_data | value  - {'employee': 'siam'} 
 
 #### Read Operation TTL Expired 
 
-> \>>> print(datastore_invoke(2, client = "hunch" , key = "employee_data_temp"))
-> Error Status : TTL Value for the Key - employee_data_temp expired for the client - hunch
+    >>> print(datastore_invoke(2, client = "hunch" , key = "employee_data_temp"))
+    Error Status : TTL Value for the Key - employee_data_temp expired for the client - hunch
 
 #### Delete Operation 
 
-> \>>> print(datastore_invoke(3, client = "hunch" , key = "employee_data"))
-Error Status : For key | employee_data | value - is deleted
+    >>> print(datastore_invoke(3, client = "hunch" , key = "employee_data"))
+    Error Status : For key | employee_data | value - is deleted
 
 #### Delete Operation TTL Expired
 
-> \>>> print(datastore_invoke(3, client = "hunch" , key = "employee_data_temp"))
-Error Status : TTL Value for the Key - employee_data_temp expired for the client - hunch
+    >>> print(datastore_invoke(3, client = "hunch" , key = "employee_data_temp"))
+    Error Status : TTL Value for the Key - employee_data_temp expired for the client - hunch
 
 #### Reset Operation - Delete Entire file
 
-> \>>> print(datastore_invoke(4, client = "hunch" ))
-File removed!!!! - hunch
+    >>> print(datastore_invoke(4, client = "hunch" ))
+    File removed!!!! - hunch
