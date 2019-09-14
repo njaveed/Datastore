@@ -2,6 +2,14 @@ from pythonfiledatastore import main_executor
 from pythonfiledatastore import operations
 import argparse
 
+
+help = '''Operation_name  
+	1 for Create (--client --key  --ttl(optional) --value --filepath(optional)) 
+	2 for Read (--client --key --filepath(optional)) 
+	3 for Delete (--client --key --filepath(optional)) 
+	4 for Reset (--client --filepath(optional))'''
+
+
 class datastore():
 	
 	def __init__(self, args):
@@ -51,12 +59,6 @@ def datastore_invoke(operation_name, **kwargs):
 		status = "Operation Not Found" + help
 
 	return status
-
-help = '''Operation_name  
-	1 for Create (--client --key  --ttl(optional) --value --filepath(optional)) 
-	2 for Read (--client --key --filepath(optional)) 
-	3 for Delete (--client --key --filepath(optional)) 
-	4 for Reset (--client --filepath(optional))'''
 
 
 if __name__ == "__main__": 
