@@ -6,7 +6,7 @@
 
 ## Installation
 
-``` pip install datastore ```
+``` pip install python-file-datastore==0.1 ```
 
 Additional Installation
 
