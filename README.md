@@ -6,11 +6,11 @@
 
 ## Installation
 
-> pip install datastore
+``` pip install datastore ```
 
 Additional Installation
 
-> pip install cachetools
+``` pip install cachetools ```
 
 Make sure you have python 3
 
