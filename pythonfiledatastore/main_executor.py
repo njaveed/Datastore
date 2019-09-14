@@ -10,7 +10,7 @@ lock = threading.RLock()
 def create(client, key, value, **kwargs):
 	ttl_value = kwargs.get('ttl', None)
 	
-	filepath = kwargs.get('filepath', "")
+	filepath = kwargs.get('filepath', ".//")
 	with lock:
 		if isinstance(value, str):
 			try:
@@ -18,7 +18,7 @@ def create(client, key, value, **kwargs):
 			except:
 				value = value
 		
-		status = operations.create_operation(client, key, value, filepath, ttl = ttl_value)
+		status = operations.create_operation(client, key, value, filepath , ttl = ttl_value)
 		
 		if 'successfull' in status:
 			return "Create Operation Done"

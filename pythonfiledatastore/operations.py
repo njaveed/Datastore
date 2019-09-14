@@ -5,7 +5,7 @@ from cachetools import TTLCache
 
 #######################	Operations ################################
 def create_operation(client_name, key, value, filepath, **kwargs):
-	ttl_value = kwargs.get('ttl', None)
+	ttl_value = kwargs.get('ttl', None) 
 	try:
 		with open(filepath+client_name+'.json', 'r+') as create_append:
 			old_data = json.load(create_append)
