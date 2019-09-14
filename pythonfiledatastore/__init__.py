@@ -9,7 +9,7 @@ class datastore():
 		self.value = args.get('value', None)
 		self.client = args.get('client', None)
 		self.ttl = args.get('ttl', None)
-		self.filepath = args.get('filepath', None)
+		self.filepath = args.get('filepath', ".//")
 		self.help = '''  
 	1 for Create (--client --key  --ttl(optional) --value --filepath(optional)) 
 	2 for Read (--client --key --filepath(optional)) 
