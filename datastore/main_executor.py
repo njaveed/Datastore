@@ -1,4 +1,4 @@
-from .operations import operations
+from datastore import operations
 import logging
 import threading
 import json  
