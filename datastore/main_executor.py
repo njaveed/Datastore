@@ -1,4 +1,4 @@
-import operations
+from .operations import operations
 import logging
 import threading
 import json  
